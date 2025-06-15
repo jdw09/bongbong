@@ -27,14 +27,14 @@ def gotoplay(bongbong):
 
 def start_screen():
     screen.clearscreen()
-    screen.bgpic("/Users/yuniinuy/Downloads/bg_start.gif")
+    screen.bgpic("/bg_start.gif")
     time.sleep(2)
     screen.onkeypress(select_screen, "space")
     screen.onkeypress(exit_game, "x")
 
 def select_screen():
     screen.clearscreen()
-    screen.bgpic("/Users/yuniinuy/Downloads/select.gif")
+    screen.bgpic("/select.gif")
     screen.onkeypress(lambda: gotoplay("Blue"), "1")
     screen.onkeypress(lambda: gotoplay("Red"), "2")
     screen.onkeypress(lambda: gotoplay("Yellow"), "3")
@@ -66,21 +66,21 @@ def turtle_setup():
     third_snale = turtle.Turtle()
     text_turtle = turtle.Turtle()
 
-    first_snale.shape("/Users/yuniinuy/Downloads/blue_snale.gif")
+    first_snale.shape("/img/blue_snale.gif")
     first_snale.speed(0)
     first_snale.penup()
     first_snale.goto(-500, 75)
     first_snale.setheading(0)
     first_snale.showturtle()
 
-    second_snale.shape("/Users/yuniinuy/Downloads/red_snale.gif")
+    second_snale.shape("/img/red_snale.gif")
     second_snale.speed(0)
     second_snale.penup()
     second_snale.goto(-500, -100)
     second_snale.setheading(0)
     second_snale.showturtle()
 
-    third_snale.shape("/Users/yuniinuy/Downloads/yellow_snale.gif")
+    third_snale.shape("/img/yellow_snale.gif")
     third_snale.speed(0)
     third_snale.penup()
     third_snale.goto(-500, -300)
@@ -93,10 +93,10 @@ def turtle_setup():
 
 def play_screen():
     screen.clearscreen()
-    screen.bgpic("/Users/yuniinuy/Downloads/bg.gif")
-    turtle.register_shape("/Users/yuniinuy/Downloads/red_snale.gif")
-    turtle.register_shape("/Users/yuniinuy/Downloads/blue_snale.gif")
-    turtle.register_shape("/Users/yuniinuy/Downloads/yellow_snale.gif")  # .gif 파일 등록
+    screen.bgpic("/img/bg.gif")
+    turtle.register_shape("/img/red_snale.gif")
+    turtle.register_shape("/img/blue_snale.gif")
+    turtle.register_shape("/img/yellow_snale.gif")  # .gif 파일 등록
 
     turtle_setup()
     play()
@@ -106,17 +106,17 @@ def result_screen(win_color):
     added_point = point
 
     if win_color == "Blue":
-        screen.bgpic("/Users/yuniinuy/Downloads/result_blue.gif")
+        screen.bgpic("/img/result_blue.gif")
 
     elif win_color == "Red":
-        screen.bgpic("/Users/yuniinuy/Downloads/result_red.gif")
+        screen.bgpic("/img/result_red.gif")
 
     elif win_color == "Yellow":
-        screen.bgpic("/Users/yuniinuy/Downloads/result_yellow.gif")
+        screen.bgpic("/img/result_yellow.gif")
 
-    first_snale.shape("/Users/yuniinuy/Downloads/blue_snale.gif")
-    second_snale.shape("/Users/yuniinuy/Downloads/red_snale.gif")
-    third_snale.shape("/Users/yuniinuy/Downloads/yellow_snale.gif")
+    first_snale.shape("/img/blue_snale.gif")
+    second_snale.shape("/img/red_snale.gif")
+    third_snale.shape("/img/yellow_snale.gif")
 
     if selected_bongbong == "Blue":
         first_snale.goto(-250, -50)
