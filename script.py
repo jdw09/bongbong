@@ -72,6 +72,17 @@ def get_point():
                 return int(point)
         return "사용자 데이터가 없습니다."
 
+def save_point(point):
+    with open("/Users/yuniinuy/PyCharmMiscProject/gamedata.data", "r") as data:
+        lines = data.readlines()
+    for i in range(len(lines)):
+        if lines[i].split(":")[0] == userid:
+            lines[i] = userid + ":" + str(point) + "\n"
+    data.close()
+
+    with open("/Users/yuniinuy/PyCharmMiscProject/gamedata.data", "w") as data:
+        data.writelines(lines)
+
 def exit_game():
     print("게임이 정상 종료되었습니다.")
     exit()
@@ -216,6 +227,7 @@ def result_screen(win_color):
     text_turtle.write(f"{added_point}점", font=("Arial", 30, "bold"))
 
     point = added_point
+    save_point(point)
 
     screen.onkeypress(exit, "x")
     screen.onkeypress(restart, "space")
