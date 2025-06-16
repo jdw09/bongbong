@@ -1,15 +1,76 @@
 import turtle
 import random as r
 import time
+import hashlib
 
+userid = ""
 
-print("*"*50)
-print("대한민국 대선 레이싱: 대한민국의 운명이 달렸다!")
-print("*"*50)
+def hash_password(password):
+    hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    return hashed_password
 
-selected_bongbong = "None"
-end_flag = False
-point = 0
+def save_user(username, password):
+    password = hash_password(password)
+    new_user = username + ":" + password + "\n"
+    with open("/Users/yuniinuy/PyCharmMiscProject/user.pkl", "a") as f:
+        f.write(new_user)
+    with open("/Users/yuniinuy/PyCharmMiscProject/gamedata.data", "a") as gamedata:
+        gamedata.write(f"{username}:0\n")
+
+def login():
+    print("\nLogin")
+    username = input("ID: ")
+    password = input("PW: ")
+    password = hash_password(password)
+    with open("/Users/yuniinuy/PyCharmMiscProject/user.pkl", "r") as f:
+        users = f.read().split("\n")
+    for i in users:
+        user = list(i.split(":"))
+        if username == user[0] and password == user[1]:
+            print("로그인 성공")
+            global userid
+            userid = user[0]
+            f.close()
+            return
+    print("로그인 실패")
+    login_logic()
+
+def register():
+    print("\nRegister")
+    username = input("ID: ")
+    is_duplicate = False
+    with open("/Users/yuniinuy/PyCharmMiscProject/user.pkl", "r") as f:
+        users = f.read().split("\n")
+    for i in users:
+        user = list(i.split(":"))
+        if username == user[0]:
+            print("이미 등록된 사용자 입니다")
+            is_duplicate = True
+    f.close()
+    if not is_duplicate:
+        password = input("PW: ")
+        save_user(username, password)
+    else:
+        login_logic()
+
+def login_logic():
+    print("1. 로그인\n2. 회원가입\n3. 종료")
+    select = int(input("Select: "))
+    if select == 1:
+        login()
+    elif select == 2:
+        register()
+        login()
+    else:
+        exit()
+
+def get_point():
+    with open("/Users/yuniinuy/PyCharmMiscProject/gamedata.data", "r") as data:
+        for i in data:
+            user, point = i.split(":")
+            if user == userid:
+                return int(point)
+        return "사용자 데이터가 없습니다."
 
 def exit_game():
     print("게임이 정상 종료되었습니다.")
@@ -159,7 +220,15 @@ def result_screen(win_color):
     screen.onkeypress(exit, "x")
     screen.onkeypress(restart, "space")
 
+print("*"*50)
+print("대한민국 대선 레이싱: 대한민국의 운명이 달렸다!")
+print("*"*50)
 
+login_logic()
+
+selected_bongbong = "None"
+end_flag = False
+point = get_point()
 
 screen = turtle.Screen()
 screen.setup(width=1280, height=853)
