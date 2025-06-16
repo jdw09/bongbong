@@ -50,8 +50,10 @@ def register():
     if not is_duplicate:
         password = input("PW: ")
         save_user(username, password)
+        login()
     else:
         login_logic()
+        return
 
 def login_logic():
     print("1. 로그인\n2. 회원가입\n3. 종료")
@@ -60,7 +62,6 @@ def login_logic():
         login()
     elif select == 2:
         register()
-        login()
     else:
         exit()
 
