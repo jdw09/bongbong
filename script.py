@@ -2,8 +2,10 @@ import turtle
 import random as r
 import time
 import hashlib
+import pygame
 
 userid = ""
+isPlaying = False
 
 def hash_password(password): #비밀번호 암호화용 함수, hashlib 사용
     hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
@@ -89,10 +91,17 @@ def exit_game(): #게임 종료 함수
 
 def restart(): #재시작 함수
     global end_flag
+    global isPlaying
     end_flag = False
+    isPlaying = False
     start_screen()
 
 def gotoplay(bongbong): #선택된 봉봉을 저장하고 다음 화면을 띄우는 함수
+    global isPlaying
+    if isPlaying:
+        return
+    else:
+        isPlaying = True
     global selected_bongbong
     selected_bongbong = bongbong
     play_screen()
@@ -234,7 +243,18 @@ def result_screen(win_color): #결과 화면 함수
     screen.onkeypress(exit_game, "x") #x == 종료함수 실행
     screen.onkeypress(restart, "space") #space == 재시작 함수 실행
 
+def play_sound(file, num = -1):
+    pygame.mixer.init()
+    pygame.mixer.music.load(file)
+    pygame.mixer.music.play(num)
+
+def stop_bgm():
+    pygame.mixer.music.stop()
+
 #__________main___________
+
+file = "/Users/yuniinuy/Downloads/kyukyurarin.mp3"
+
 
 print("*"*50)
 print("대한민국 대선 레이싱: 대한민국의 운명이 달렸다!")
@@ -256,5 +276,6 @@ second_snale = turtle.Turtle()
 third_snale = turtle.Turtle()
 text_turtle = turtle.Turtle()
 
+play_sound(file)
 start_screen() #스크린 띄우기
 screen.listen() #키보드 대기
