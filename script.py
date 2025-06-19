@@ -253,7 +253,7 @@ def stop_bgm():
 
 #__________main___________
 
-file = "/Users/yuniinuy/Downloads/kyukyurarin.mp3"
+file = "/Users/yuniinuy/Downloads/dadadametenshi.mp3"
 
 
 print("*"*50)
